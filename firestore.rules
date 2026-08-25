@@ -1,0 +1,105 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default-deny catch-all safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation for exams collection
+    function isValidExam(data) {
+      return data.title is string && data.title.size() > 0 && data.title.size() <= 500
+          && data.createdBy is string && data.createdBy == request.auth.uid
+          && (data.subject == null || (data.subject is string && data.subject.size() <= 100))
+          && (data.grade == null || (data.grade is string && data.grade.size() <= 50))
+          && (data.questions == null || (data.questions is list && data.questions.size() <= 500));
+    }
+
+    match /exams/{examId} {
+      allow get, list: if isSignedIn() && resource.data.createdBy == request.auth.uid;
+      allow create: if isSignedIn() 
+                    && isValidId(examId) 
+                    && incoming().createdBy == request.auth.uid
+                    && isValidExam(incoming());
+      allow update: if isSignedIn() 
+                    && isValidId(examId)
+                    && existing().createdBy == request.auth.uid
+                    && incoming().createdBy == existing().createdBy
+                    && isValidExam(incoming());
+      allow delete: if isSignedIn() 
+                    && isValidId(examId) 
+                    && existing().createdBy == request.auth.uid;
+    }
+
+    // Validation for user_exams collection
+    function isValidUserExam(data) {
+      return data.userId is string && data.userId == request.auth.uid
+          && data.examId is string && data.examId.size() <= 128
+          && (data.status == null || (data.status is string && data.status.size() <= 50))
+          && (data.score == null || data.score is number)
+          && (data.total == null || data.total is number)
+          && (data.percentage == null || data.percentage is number)
+          && (data.timeLimit == null || data.timeLimit is number)
+          && (data.startTime == null || data.startTime is number);
+    }
+
+    match /user_exams/{sessionId} {
+      allow get, list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() 
+                    && isValidId(sessionId) 
+                    && incoming().userId == request.auth.uid
+                    && isValidUserExam(incoming());
+      allow update: if isSignedIn() 
+                    && isValidId(sessionId)
+                    && existing().userId == request.auth.uid
+                    && incoming().userId == existing().userId
+                    && isValidUserExam(incoming());
+      allow delete: if isSignedIn() 
+                    && isValidId(sessionId) 
+                    && existing().userId == request.auth.uid;
+    }
+
+    // Validation for sessions collection
+    function isValidSession(data) {
+      return data.userId is string && data.userId == request.auth.uid
+          && data.examId is string && data.examId.size() <= 128
+          && (data.status == null || (data.status is string && data.status.size() <= 50))
+          && (data.timeLimit == null || data.timeLimit is number)
+          && (data.startTime == null || data.startTime is number);
+    }
+
+    match /sessions/{sessionId} {
+      allow get, list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() 
+                    && isValidId(sessionId) 
+                    && incoming().userId == request.auth.uid
+                    && isValidSession(incoming());
+      allow update: if isSignedIn() 
+                    && isValidId(sessionId)
+                    && existing().userId == request.auth.uid
+                    && incoming().userId == existing().userId
+                    && isValidSession(incoming());
+      allow delete: if isSignedIn() 
+                    && isValidId(sessionId) 
+                    && existing().userId == request.auth.uid;
+    }
+  }
+}
+

@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "Exam": {
+      "title": "Exam",
+      "description": "Custom or extracted exam document",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 500 },
+        "subject": { "type": "string", "maxLength": 100 },
+        "grade": { "type": "string", "maxLength": 50 },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "timeLimit": { "type": "number" }
+      },
+      "required": ["title", "createdBy"]
+    },
+    "UserExam": {
+      "title": "UserExam",
+      "description": "Completed or recorded exam result and session tracking",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "examId": { "type": "string", "maxLength": 128 },
+        "status": { "type": "string", "maxLength": 50 },
+        "score": { "type": "number" },
+        "total": { "type": "number" },
+        "percentage": { "type": "number" },
+        "timeLimit": { "type": "number" },
+        "startTime": { "type": "number" }
+      },
+      "required": ["userId", "examId"]
+    },
+    "Session": {
+      "title": "Session",
+      "description": "Active in-progress test session",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "examId": { "type": "string", "maxLength": 128 },
+        "timeLimit": { "type": "number" },
+        "startTime": { "type": "number" },
+        "status": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "examId"]
+    }
+  },
+  "firestore": {
+    "/exams/{examId}": {
+      "schema": "Exam",
+      "description": "User created exams collection"
+    },
+    "/user_exams/{sessionId}": {
+      "schema": "UserExam",
+      "description": "Exam result sessions collection"
+    },
+    "/sessions/{sessionId}": {
+      "schema": "Session",
+      "description": "Active test sessions collection"
+    }
+  }
+}

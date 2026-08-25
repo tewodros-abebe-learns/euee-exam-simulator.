@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" stroke="#334155" stroke-width="8"/>
+
+  <!-- Glowing outer ring -->
+  <circle cx="256" cy="256" r="170" fill="none" stroke="url(#accentGrad)" stroke-width="12" stroke-dasharray="16 12" opacity="0.4"/>
+
+  <!-- Central Graduation Cap & Book Motif -->
+  <g transform="translate(106, 120)">
+    <!-- Book pages -->
+    <path d="M40 200 Q 150 160 260 200 L 260 230 Q 150 190 40 230 Z" fill="#475569" opacity="0.6"/>
+    
+    <!-- Mortarboard Diamond -->
+    <polygon points="150,20 280,80 150,140 20,80" fill="url(#accentGrad)"/>
+    <polygon points="150,30 265,80 150,130 35,80" fill="#2563EB" opacity="0.8"/>
+    
+    <!-- Cap Skull Base -->
+    <path d="M70 95 L 70 140 Q 150 180 230 140 L 230 95 Q 150 130 70 95 Z" fill="#1D4ED8"/>
+    
+    <!-- Tassel -->
+    <path d="M150 80 Q 230 85 245 130 L 240 165 L 250 165 L 245 130" stroke="url(#goldGrad)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <circle cx="245" cy="168" r="6" fill="url(#goldGrad)"/>
+    <circle cx="150" cy="80" r="7" fill="url(#goldGrad)"/>
+  </g>
+
+  <!-- Brand Typography "EUEE" -->
+  <text x="256" y="390" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="54" fill="#F8FAFC" letter-spacing="4">EUEE</text>
+  <text x="256" y="425" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="20" fill="#94A3B8" letter-spacing="3">OFFLINE EXAM</text>
+</svg>

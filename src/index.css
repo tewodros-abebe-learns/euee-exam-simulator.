@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+}
+
+:root {
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --bg-accent: #161618;
+  --text-primary: #E8EAED;
+  --text-secondary: #9AA0A6;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --card-hover: #262629;
+  --option-bg: #18181A;
+  --option-border: rgba(255, 255, 255, 0.08);
+  --option-hover-bg: #222226;
+  --context-box-bg: #1A1D24;
+  --context-box-border: #4285F4;
+}
+
+.light-mode {
+  --bg-primary: #F4F6F8;
+  --bg-secondary: #FFFFFF;
+  --bg-accent: #EDF2F7;
+  --text-primary: #1A202C;
+  --text-secondary: #4A5568;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --card-hover: #E2E8F0;
+  --option-bg: #FFFFFF;
+  --option-border: #CBD5E1;
+  --option-hover-bg: #F1F5F9;
+  --context-box-bg: #EFF6FF;
+  --context-box-border: #3B82F6;
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans antialiased transition-colors duration-300 overflow-x-hidden max-w-[100vw];
+  }
+}
+
+.markdown-body p {
+  margin-bottom: 0.5em;
+}
+.markdown-body p:last-child {
+  margin-bottom: 0;
+}
+.markdown-body strong {
+  font-weight: 700;
+}
+.markdown-body em {
+  font-style: italic;
+}
+.markdown-body ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.markdown-body ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+.markdown-body h1:first-child, .markdown-body h2:first-child, .markdown-body h3:first-child, .markdown-body h4:first-child {
+  margin-top: 0;
+}
+.markdown-body blockquote {
+  border-left: 4px solid var(--border-color);
+  padding-left: 1em;
+  margin-left: 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}

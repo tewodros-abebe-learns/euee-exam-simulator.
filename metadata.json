@@ -1,0 +1,8 @@
+{
+  "name": " FINAL: EUEE ?",
+  "description": "Transform static exams into interactive practice sessions with AI-powered parsing and grading.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
